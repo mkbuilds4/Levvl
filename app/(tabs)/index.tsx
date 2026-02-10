@@ -135,7 +135,7 @@ export default function HomeScreen() {
             Hi, {welcomeName}
           </Text>
           <Text variant="body" style={StyleSheet.flatten([styles.welcomeSubtext, { color: colors.muted }])}>
-            This is your home screen. Replace this with your own content and features.
+            Your daily tasks and courses live here. Complete today's steps or manage your content.
           </Text>
         </View>
       </View>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, KeyboardAvoidingView, Platform, StyleSheet, Pressable, Alert, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { authClient } from '../lib/auth-client';
-import { spacing, radii } from '../lib/theme';
+import { spacing, radii, typography } from '../lib/theme';
 import { Button, Input, Text } from '../components';
 import { useTheme } from '../lib/theme-context';
 
@@ -166,8 +166,17 @@ export function SignInSignUp({
   };
 
   const insets = useSafeAreaInsets();
+  const dynamicStyles = StyleSheet.create({
+    screen: { backgroundColor: colors.background },
+    formTitle: {
+      fontSize: 28,
+      fontWeight: typography.title.fontWeight,
+    },
+    primaryButton: { borderRadius: radii.xl },
+    inputRounded: { borderRadius: radii.lg },
+  });
   return (
-    <View style={[styles.authScreen, { paddingTop: insets.top }]}>
+    <View style={[styles.authScreen, dynamicStyles.screen, { paddingTop: insets.top }]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
@@ -193,7 +202,7 @@ export function SignInSignUp({
                 ←
               </Text>
             </Pressable>
-            <Text variant="cardTitle" style={styles.formTitle}>
+            <Text variant="cardTitle" style={[styles.formTitle, dynamicStyles.formTitle]}>
               {mode === 'signin' ? 'Log in' : 'Create account'}
             </Text>
             <View style={styles.titleRowSpacer} />
@@ -206,6 +215,7 @@ export function SignInSignUp({
                 onChangeText={setName}
                 autoCapitalize="words"
                 editable={!loading}
+                style={dynamicStyles.inputRounded}
                 accessibilityLabel="Name"
                 accessibilityHint="Enter your display name"
               />
@@ -217,6 +227,7 @@ export function SignInSignUp({
               keyboardType="email-address"
               autoCapitalize="none"
               editable={!loading}
+              style={dynamicStyles.inputRounded}
               accessibilityLabel="Email"
               accessibilityHint="Enter your email address"
             />
@@ -227,7 +238,7 @@ export function SignInSignUp({
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
                 editable={!loading}
-                style={styles.passwordInputWithToggle}
+                style={[styles.passwordInputWithToggle, dynamicStyles.inputRounded]}
                 accessibilityLabel="Password"
                 accessibilityHint="Enter your password"
               />
@@ -293,7 +304,7 @@ export function SignInSignUp({
                     onBlur={() => setConfirmPasswordTouched(true)}
                     secureTextEntry={!showConfirmPassword}
                     editable={!loading}
-                    style={styles.passwordInputWithToggle}
+                    style={[styles.passwordInputWithToggle, dynamicStyles.inputRounded]}
                     accessibilityLabel="Confirm password"
                     accessibilityHint="Re-enter your password to confirm"
                   />
@@ -349,6 +360,7 @@ export function SignInSignUp({
             loading={loading}
             onPress={handleSubmit}
             disabled={!canSubmit}
+            style={dynamicStyles.primaryButton}
             accessibilityLabel={mode === 'signin' ? 'Log in' : 'Create account'}
             accessibilityHint={mode === 'signin' ? 'Submit to sign in' : 'Submit to create your account'}
           >

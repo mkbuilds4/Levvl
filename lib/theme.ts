@@ -30,12 +30,12 @@ export const darkColors: ColorPalette = {
 };
 
 export const lightColors: ColorPalette = {
-  background: '#fafafa',
+  background: '#ffffff',
   surface: '#e5e5e5',
   text: '#171717',
   muted: '#737373',
   error: '#dc2626',
-  primary: '#047857',
+  primary: '#1e293b', // dark navy (reference look)
   onPrimary: '#ffffff',
 };
 
@@ -55,6 +55,7 @@ export const radii = {
   sm: 8,
   md: 12,
   lg: 16,
+  xl: 20,
 } as const;
 
 export const typography = {
